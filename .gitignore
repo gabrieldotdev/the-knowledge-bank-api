@@ -1,0 +1,11 @@
+*.log
+node_modules/
+package-lock.json
+
+# Ignore files generated
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore OS generated files
+.DS_Store
+.env
