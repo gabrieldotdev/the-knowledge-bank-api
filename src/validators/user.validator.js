@@ -1,19 +1,26 @@
 //Path: Validation for user
 const Joi = require('joi');
 
-const userSchema = Joi.object({
+const validator = (schema) => (payload) => {
+    schema.validatorOptions(payload, { abortEarly: false });
+};
+
+const signUpSchema = Joi.object({
     Id: Joi.number().integer().min(1),
-    Username: Joi.string().min(3).max(30).required(),
+    Username: Joi.string().min(4).max(30).required(),
     Password: Joi.string().min(8).max(30).required(),
+    PasswordConfirm: Joi.ref('Password'),
     Email: Joi.string().email().required(),
     PublishedOn: Joi.date().iso(),
     UpdatedOn: Joi.date().iso(),
 });
 
-const validateUser = (user) => {
-    return userSchema.validate(user);
-};
+const signInSchema = Joi.object({
+    Username: Joi.string().min(4).max(30).required(),
+    Password: Joi.string().min(8).max(30).required(),
+});
 
 module.exports = {
-    validateUser,
+    signUpValidator: validator(signUpSchema),
+    signInValidator: validator(signInSchema),
 };
