@@ -17,4 +17,5 @@ module.exports = {
 
     JWT_SECRET: process.env.JWT_SECRET,
     ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
+    API_KEY: process.env.API_KEY,
 };
