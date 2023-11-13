@@ -8,4 +8,3 @@ yarn.lock
 
 # Ignore OS generated files
 .DS_Store
-.env

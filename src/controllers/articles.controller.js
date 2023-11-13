@@ -32,7 +32,7 @@ const getArticleById = async (req, res) => {
 const getArticleByCategory = async (req, res) => {
     try {
         const Id = parseInt(req.params.CategoryId);
-        const article = await articleService.getArticleByCategory(Id);
+        const article = await articleService.getArticleByCategoryId(Id);
         res.status(200).json({
             message: `Article with Id ${Id} retrieved successfully`,
             article,
@@ -46,7 +46,7 @@ const getArticleByCategory = async (req, res) => {
 const getArticleByUser = async (req, res) => {
     try {
         const Id = parseInt(req.params.UserId);
-        const article = await articleService.getArticleByUser(Id);
+        const article = await articleService.getArticleByUserId(Id);
         res.status(200).json({
             message: `Article with Id ${Id} retrieved successfully`,
             article,
@@ -97,6 +97,20 @@ const deleteArticle = async (req, res) => {
     }
 };
 
+// GET: Search Articles (Controller)
+const searchArticle = async (req, res) => {
+    try {
+        const keyword = req.params.keyword;
+        const article = await articleService.searchArticle(keyword);
+        res.status(200).json({
+            message: `Article with keyword ${keyword} retrieved successfully`,
+            article,
+        });
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
 module.exports = {
     getAllArticles,
     getArticleById,
@@ -105,4 +119,5 @@ module.exports = {
     createArticle,
     updateArticle,
     deleteArticle,
+    searchArticle,
 };

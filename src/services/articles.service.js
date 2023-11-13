@@ -1,84 +1,46 @@
 //Path: server/src/services/articles.service.js
-const { getPool } = require('../../database/connection.db');
-const Article = require('../models/article.model');
-const queries = require('../../database/queries/article.queries');
+const userRepository = require('../repository/article.repo');
 
-// GET: Get All Articles (Service)
 const getAllArticles = async () => {
-    const pool = await getPool();
-    const query = queries.getAllArticles;
-    const result = await pool.query(query);
-    return result.rows;
+    const result = await userRepository.getAllArticles();
+    return result;
 };
 
-// GET: Get an Article by Id (Id)
 const getArticleById = async (Id) => {
-    const pool = await getPool();
-    const query = queries.getArticleById;
-    const result = await pool.query(query, [Id]);
-    return result.rows[0];
+    const result = await userRepository.getArticleById(Id);
+    return result;
 };
 
-// GET: Get an Article by Id (Category)
-const getArticleByCategory = async (CategoryId) => {
-    const pool = await getPool();
-    const query = queries.getArticleByCategory;
-    const result = await pool.query(query, [CategoryId]);
-    return result.rows;
+const getArticleByCategoryId = async (CategoryId) => {
+    const result = await userRepository.getArticleByCategoryId(CategoryId);
+    return result;
 };
 
-// Get: Get an Article by Id (User)
-const getArticleByUser = async (UserId) => {
-    const pool = await getPool();
-    const query = queries.getArticleByUser;
-    const result = await pool.query(query, [UserId]);
-    return result.rows;
+const getArticleByUserId = async (UserId) => {
+    const result = await userRepository.getArticleByUserId(UserId);
+    return result;
 };
 
-// POST: Create an Article (Service)
 const createArticle = async (article) => {
-    const pool = await getPool();
-    const articles = new Article(article);
-    const query = queries.createArticle;
-    const result = await pool.query(query, [
-        articles.Title,
-        articles.Description,
-        articles.Content,
-        articles.CategoryId,
-        articles.UserId,
-    ]);
-    return result.rows[0];
+    const result = await userRepository.createArticle(article);
+    return result;
 };
 
-// PUT: Update an Article (Service)
 const updateArticle = async (Id, article) => {
-    const pool = await getPool();
-    const articles = new Article(article);
-    const query = queries.updateArticle;
-    const result = await pool.query(query, [
-        Id,
-        articles.Title,
-        articles.Description,
-        articles.Content,
-        articles.CategoryId,
-        articles.UserId,
-    ]);
-    return result.rows[0];
+    const result = await userRepository.updateArticle(Id, article);
+    return result;
 };
 
-// DELETE: Delete an Article (Service)
 const deleteArticle = async (Id) => {
-    const pool = await getPool();
-    const query = queries.deleteArticle;
-    const result = await pool.query(query, [Id]);
-    return result.rows[0];
+    const result = await userRepository.deleteArticle(Id);
+    return result;
 };
 
 module.exports = {
     getAllArticles,
     getArticleById,
-    getArticleByCategory,
-    getArticleByUser,
+    getArticleByCategoryId,
+    getArticleByUserId,
     createArticle,
     updateArticle,
     deleteArticle,

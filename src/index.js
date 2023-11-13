@@ -13,8 +13,8 @@ server.set('views', path.join(__dirname, 'views'));
 
 // Configure routes
 server.use(pageRoutes);
-server.use('/api/v1/users', userRoutes);
-server.use('/api/v1/articles', articleRoutes);
+server.use('/api/v1', userRoutes);
+server.use('/api/v1', articleRoutes);
 
 //Check connection to database
 checkConnection();
